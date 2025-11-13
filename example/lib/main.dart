@@ -257,6 +257,31 @@ class _VoiceRecorderExampleState extends State<VoiceRecorderExample> {
 
             const SizedBox(height: 30),
 
+            // ------------------------ Asset Audio (Style 6 - WhatsApp-like) ------------------------
+            const AudioPlayerWidget(
+              autoLoad: true,
+              audioPath:
+                  "assets/start_warning.mp3", // Path to an asset audio file
+              audioType:
+                  AudioType.assets, // Specify that the audio source is an asset
+              size: 30, // Size of the player widget
+              progressBarHeight: 5, // Height of the progress bar
+              backgroundColor: Colors.blue, // Background color of the player
+              progressBarColor: Color.fromARGB(
+                  255, 62, 167, 252), // Color of the progress bar
+              progressBarBackgroundColor:
+                  Colors.white, // Background color of the progress bar
+              iconColor: Colors.white, // Color of the play/pause icon
+              shapeType: PlayIconShapeType
+                  .circular, // Shape type for the play/pause icon
+              playerStyle: PlayerStyle.style6, // Player style for the widget
+              width: 300, // Width of the player widget
+              showProgressBar: true, // Show the progress bar
+              showTimer: true, // Show the timer
+            ),
+
+            const SizedBox(height: 30),
+
             // ------------------------ Asset Audio (Style 4) ------------------------
             const AudioPlayerWidget(
               autoLoad: true,

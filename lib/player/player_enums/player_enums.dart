@@ -26,6 +26,9 @@ enum PlayerStyle {
 
   /// Style variation 5.
   style5,
+
+  /// Style variation 6 (WhatsApp-like single timer).
+  style6,
 }
 
 /// Represents the source type of the audio file.
