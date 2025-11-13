@@ -127,17 +127,6 @@ class StyleSixWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (showTimer)
-                    Text(
-                      isPlaying
-                          ? formatDuration(position)
-                          : formatDuration(duration),
-                      style: widget.timerTextStyle ??
-                          TextStyle(
-                            color: widget.iconColor,
-                            fontSize: 14,
-                          ),
-                    ),
                   if (showProgressBar)
                     WaveformSlider(
                       waveform: waveformData,
@@ -147,6 +136,20 @@ class StyleSixWidget extends StatelessWidget {
                           .withAlpha((0.1 * 255).round()),
                       activeColor: widget.progressBarBackgroundColor,
                       onSeek: seekTo,
+                    ),
+                  if (showTimer)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4.0),
+                      child: Text(
+                        isPlaying
+                            ? formatDuration(position)
+                            : formatDuration(duration),
+                        style: widget.timerTextStyle ??
+                            TextStyle(
+                              color: widget.iconColor,
+                              fontSize: 14,
+                            ),
+                      ),
                     ),
                 ],
               ),
