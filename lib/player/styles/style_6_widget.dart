@@ -81,13 +81,21 @@ class StyleSixWidget extends StatelessWidget {
       textDirection: widget.textDirection,
       child: Container(
         width: widget.width,
-        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
         decoration: BoxDecoration(
           color: widget.backgroundColor,
           borderRadius: BorderRadius.circular(20.0),
         ),
         child: Row(
           children: [
+            if (showSpeedControl)
+              SpeedButton(
+                currentSpeed: currentSpeed,
+                playbackSpeeds: playbackSpeeds,
+                setSpeed: setSpeed,
+                iconColor: widget.iconColor,
+              ),
+            if (showSpeedControl) const SizedBox(width: 6.0),
             GestureDetector(
               onTap: () {
                 if (isPlaying) {
@@ -99,47 +107,39 @@ class StyleSixWidget extends StatelessWidget {
               child: Container(
                 width: widget.size,
                 height: widget.size,
-                decoration: BoxDecoration(
-                  shape: widget.shapeType == PlayIconShapeType.circular
-                      ? BoxShape.circle
-                      : widget.shapeType == PlayIconShapeType.roundedRectangle
-                          ? BoxShape.rectangle
-                          : BoxShape.rectangle,
-                  borderRadius:
-                      widget.shapeType == PlayIconShapeType.roundedRectangle
-                          ? BorderRadius.circular(8.0)
-                          : null,
-                  color: widget.iconColor.withAlpha((0.2 * 255).round()),
-                ),
                 child: RotatedBox(
                   quarterTurns:
                       widget.textDirection == TextDirection.ltr ? 0 : 2,
                   child: Icon(
                     isPlaying ? Icons.pause : Icons.play_arrow,
                     color: widget.iconColor,
-                    size: widget.size * 0.6,
+                    size: widget.size * 0.9,
                   ),
                 ),
               ),
             ),
-            const SizedBox(width: 12.0),
+            const SizedBox(width: 6.0),
             Expanded(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (showProgressBar)
-                    WaveformSlider(
-                      waveform: waveformData,
-                      textDirection: widget.textDirection,
-                      progress: progress,
-                      inactiveColor: widget.progressBarBackgroundColor
-                          .withAlpha((0.1 * 255).round()),
-                      activeColor: widget.progressBarBackgroundColor,
-                      onSeek: seekTo,
+                    Padding(
+                      padding: const EdgeInsets.only(top: 22.0),
+                      child: WaveformSlider(
+                        waveform: waveformData,
+                        textDirection: widget.textDirection,
+                        progress: progress,
+                        inactiveColor: widget.progressBarBackgroundColor
+                            .withAlpha((0.1 * 255).round()),
+                        activeColor: widget.progressBarBackgroundColor,
+                        onSeek: seekTo,
+                      ),
                     ),
                   if (showTimer)
                     Padding(
-                      padding: const EdgeInsets.only(top: 4.0),
+                      padding: const EdgeInsets.only(bottom: 4.0),
                       child: Text(
                         isPlaying
                             ? formatDuration(position)
@@ -147,22 +147,13 @@ class StyleSixWidget extends StatelessWidget {
                         style: widget.timerTextStyle ??
                             TextStyle(
                               color: widget.iconColor,
-                              fontSize: 14,
+                              fontSize: 12,
                             ),
                       ),
                     ),
                 ],
               ),
             ),
-            if (showSpeedControl) ...[
-              const SizedBox(width: 8.0),
-              SpeedButton(
-                currentSpeed: currentSpeed,
-                playbackSpeeds: playbackSpeeds,
-                setSpeed: setSpeed,
-                iconColor: widget.iconColor,
-              ),
-            ],
           ],
         ),
       ),
